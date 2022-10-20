@@ -17,16 +17,19 @@ source("0 data.R")
 
 # download from url, unzip, unlink
 # saves to df called 'data'
-downloadunzip(spam_prod,
-              "https://s3.amazonaws.com/mapspam/2010/v2.0/geotiff/spam2010v2r0_global_val_prod_agg.geotiff.zip",
-              "spam2010V2r0_global_V_WHEA_agg_TA.tif",
-              unlink = FALSE)
+# downloadunzip(spam_prod,
+#               "https://s3.amazonaws.com/mapspam/2010/v2.0/geotiff/spam2010v2r0_global_val_prod_agg.geotiff.zip",
+#               "spam2010V2r0_global_V_WHEA_agg_TA.tif",
+#               unlink = FALSE)
 
 # parse -------------------------------------------------------------------
 
 # local read
-# spam_prod <- read_csv("data/1 Prosperity/1 Food Security/spam2010v2r0_global_val_prod_agg.csv/spam2010V2r0_global_V_agg_TA.csv") %>% 
-#   print()
+spam_prod <- read_csv(
+  str_c(datapath, 
+        "1 Prosperity/1 Food Security/spam2010v2r0_global_val_prod_agg.csv/spam2010V2r0_global_V_agg_TA.csv")
+) %>% 
+  print()
 
 # read from temp
 spam_prod <- data 
@@ -48,12 +51,12 @@ spam_prod_crop <- spam_prod %>%
   print()
 # write to rdata 
 write_rds(spam_prod_crop,
-          "data/1 Prosperity/1 Food Security/1 processed data/spam_prod_crop.rds")
+          "processed data/1 Prosperity/1 Food Security/spam_prod_crop.rds")
 # remove raw df
 rm(spam_prod)
 
 read_csv(unz("data/1 Prosperity/1 Food Security/spam2010v2r0_global_val_prod_agg.csv.zip", 
-                       "spam2010V2r0_global_V_agg_TA.csv"))
+             "spam2010V2r0_global_V_agg_TA.csv"))
 
 
 # read processed data back in  --------------------------------------------
@@ -65,10 +68,10 @@ spam_prod_crop <- read_rds("data/1 Prosperity/1 Food Security/1 processed data/s
 ggplot() +
   geom_sf_coast() +
   geom_sf(data = spam_prod_crop,
-              aes(col = vp_crop_a),
-            # shape = 19,
-            # stroke = .0001,
-            size = .25) +
+          aes(col = vp_crop_a),
+          # shape = 19,
+          # stroke = .0001,
+          size = .25) +
   # geom_raster(data = spam_prod_crop,
   #             aes(x, y,
   #                 fill = vp_crop_a)) +

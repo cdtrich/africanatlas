@@ -1,13 +1,16 @@
 # sources -----------------------------------------------------------------
 
+# files
+# source("C:/Users/cdietrich/OneDrive - EU Institute for Security Studies/Desktop/R/style_v6.R")
+source("0 style.R")
+
+# helpers
+source("0 helpers.R")
+
+# packages
 library(needs)
 needs::toProfile()
-source("C:/Users/cdietrich/OneDrive - EU Institute for Security Studies/Desktop/R/style_v6.R")
 needs(euissR, rnaturalearth, sf, giscoR, crsuggest, countrycode)
-
-# helper functions --------------------------------------------------------
-
-source("0 helpers.R")
 
 # crop --------------------------------------------------------------------
 
@@ -24,6 +27,7 @@ crop <- rnaturalearth::ne_countries(scale = 110,
 
 # crs ---------------------------------------------------------------------
 
+# run to see other suitable crs
 # crs <- gisco_coast %>%
 #   st_crop(crop) %>%
 #   crsuggest::suggest_crs() %>%
